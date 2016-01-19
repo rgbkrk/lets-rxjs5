@@ -1,0 +1,15 @@
+{
+  "name": "lets-rxjs4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "clean-codsworth-names": "^1.0.0",
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle Kelley <rgbkrk@gmail.com>",
+  "license": "Apache-2.0"
+}
