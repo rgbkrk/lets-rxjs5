@@ -16,11 +16,9 @@ function newPlayer(name) {
     name: `${adj} ${name}`,
     x: Math.round(Math.random() * (mapSize - 1)),
     y: Math.round(Math.random() * (mapSize - 1)),
+    id: uuid.v4(),
   }
 }
-
-// create a set of players with coordinates
-const players = codsworthNames.map(newPlayer)
 
 // Random walk -1, 0, 1
 function walk(pt) {
@@ -33,8 +31,29 @@ function walk(pt) {
   return newPt
 }
 
-const player = players[0]
-console.log(player)
-player.x = walk(player.x)
-player.y = walk(player.y)
-console.log(player)
+function generatePlayerData(period) {
+  if(!period){
+    period = 500;
+  }
+
+  const players = codsworthNames
+                    .map(newPlayer)
+                    .map(player => {
+                      return Rx.Observable.interval(period)
+                                          .scan((p) => {
+                                            return {
+                                              name: p.name,
+                                              id: p.id,
+                                              x: walk(p.x),
+                                              y: walk(p.y),
+                                            }
+                                          }, player)
+                                })
+
+
+  const gameState = {
+    players: codsworthNames.map(newPlayer)
+  }
+  Rx.Observable
+    .interval(period)
+}
