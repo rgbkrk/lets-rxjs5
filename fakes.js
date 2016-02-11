@@ -1,4 +1,6 @@
 const codsworthNames = require('clean-codsworth-names')
+const Rx = require('rx')
+
 const mapSize = 2048
 
 const uuid = require('uuid')
@@ -31,6 +33,25 @@ function walk(pt) {
   return newPt
 }
 
+function livePlayer(player, period) {
+  if(!player) {
+    throw new Error('need a player');
+  }
+  if(!period) {
+    period = 500;
+  }
+  return Rx.Observable.interval(period)
+            .scan((p) => {
+              return {
+                name: p.name,
+                id: p.id,
+                x: walk(p.x),
+                y: walk(p.y),
+              };
+            }, player);
+}
+
+/*
 function generatePlayerData(period) {
   if(!period){
     period = 500;
@@ -46,14 +67,11 @@ function generatePlayerData(period) {
                                               id: p.id,
                                               x: walk(p.x),
                                               y: walk(p.y),
-                                            }
-                                          }, player)
-                                })
-
-
-  const gameState = {
-    players: codsworthNames.map(newPlayer)
-  }
-  Rx.Observable
-    .interval(period)
+                                            };
+                                          }, player);
+                    }
+                 );
+  return players;
 }
+
+*/
