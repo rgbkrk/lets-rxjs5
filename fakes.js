@@ -1,12 +1,19 @@
 const codsworthNames = require('clean-codsworth-names')
-const Rx = require('rx')
-
 const mapSize = 2048
+
+// newPlayer creates a new player with a name and some random coordinates
+function newPlayer(name) {
+  return {
+    name: name,
+    x: Math.round(Math.random() * (mapSize - 1)),
+    y: Math.round(Math.random() * (mapSize - 1)),
+  }
+}
 
 const uuid = require('uuid')
 const adjectives = require('adjectives')
 
-// Upper casing these for their name
+// Upper case the names
 const Adjectives = adjectives.map(adj => {
   return adj.charAt(0).toUpperCase() + adj.slice(1)
 })
@@ -16,11 +23,12 @@ function newPlayer(name) {
 
   return {
     name: `${adj} ${name}`,
+    id: uuid.v4(),
     x: Math.round(Math.random() * (mapSize - 1)),
     y: Math.round(Math.random() * (mapSize - 1)),
-    id: uuid.v4(),
   }
 }
+
 
 // Random walk -1, 0, 1
 function walk(pt) {
@@ -32,6 +40,8 @@ function walk(pt) {
   }
   return newPt
 }
+
+const Rx = require('@reactivex/rxjs')
 
 function livePlayer(player, period) {
   if(!player) {
@@ -51,27 +61,21 @@ function livePlayer(player, period) {
             }, player);
 }
 
-/*
-function generatePlayerData(period) {
-  if(!period){
+// create a set of players with coordinates
+const defaultPlayers = codsworthNames.map(newPlayer)
+
+function livePlayers(players, period) {
+  if(!players) {
+    players = defaultPlayers;
+  }
+  if(!period) {
     period = 500;
   }
 
-  const players = codsworthNames
-                    .map(newPlayer)
-                    .map(player => {
-                      return Rx.Observable.interval(period)
-                                          .scan((p) => {
-                                            return {
-                                              name: p.name,
-                                              id: p.id,
-                                              x: walk(p.x),
-                                              y: walk(p.y),
-                                            };
-                                          }, player);
-                    }
-                 );
-  return players;
+  return Rx.Observable.merge(...players.map(p => livePlayer(p, period)))
 }
 
-*/
+
+module.exports = {
+  livePlayers
+}

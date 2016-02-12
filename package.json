@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@reactivex/rxjs": "^5.0.0-beta.2",
     "adjectives": "^1.0.1",
     "clean-codsworth-names": "^1.0.0",
-    "rx": "^4.0.7",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "webpack": "^1.12.13"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack ./index.js bundle.js"
   },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
   "license": "Apache-2.0"
