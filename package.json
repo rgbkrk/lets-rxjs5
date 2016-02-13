@@ -10,10 +10,13 @@
     "uuid": "^2.0.1",
     "webpack": "^1.12.13"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-dev-server": "^1.14.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack ./index.js bundle.js"
+    "build": "webpack ./index.js bundle.js",
+    "build:watch": "webpack-dev-server ./index.js"
   },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
   "license": "Apache-2.0"
