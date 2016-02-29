@@ -72,10 +72,18 @@ function livePlayers(players, period) {
     period = 500;
   }
 
-  return Rx.Observable.merge(...players.map(p => livePlayer(p, period)))
+  return Rx.Observable.merge(...players.map(p => livePlayer(p, period)));
 }
 
+function batchPlayers(playerStream) {
+  return playerStream
+    .scan((players, player) => {
+      players[player.id] = player;
+      return players;
+    }, {});
+}
 
 module.exports = {
-  livePlayers
-}
+  livePlayers,
+  batchPlayers,
+};
