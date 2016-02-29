@@ -1,7 +1,7 @@
 const MAP_SIZE = 2048;
 
 // Take a Canvas 2d context, paint to it
-function paint(canvas, players, image) {
+function paint(canvas, image, players) {
   const context = canvas.getContext('2d');
   context.save();
 
