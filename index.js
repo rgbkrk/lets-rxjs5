@@ -16,7 +16,7 @@ fakes.livePlayers()
        players[player.id] = player;
        return players;
      }, {})
-     .throttleTime(170)
+     .throttleTime(16) // Pretend I'm worried about 60fps
      .subscribe(players => {
        paint(mapCanvas, players, image);
      });
