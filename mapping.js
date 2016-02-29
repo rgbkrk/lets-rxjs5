@@ -13,8 +13,7 @@ function paint(canvas, players, image) {
     context.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
   }
 
-  for(var id in players) {
-    const player = players[id];
+  for(var player of players.values()) {
     context.fillStyle = '#' + player.id.slice(0, 6);
     context.fillRect(player.x, player.y, 2, 2);
   }

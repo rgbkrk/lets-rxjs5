@@ -1,5 +1,3 @@
-const Rx = require('@reactivex/rxjs')
-
 const fakes = require('./fakes');
 const paint = require('./mapping').paint;
 
@@ -11,12 +9,11 @@ const imageEl = new Image();
 imageEl.src = 'CompanionWorldMap.png';
 imageEl.onload = () => { image = imageEl; };
 
-fakes.livePlayers()
+fakes.livePlayers(fakes.defaultPlayers, 10)
      .scan((players, player) => {
-       players[player.id] = player;
-       return players;
-     }, {})
-     .throttleTime(16) // Pretend I'm worried about 60fps
+       return players.set(player.id, player);
+     }, new Map())
+     .throttleTime(17)
      .subscribe(players => {
        paint(mapCanvas, players, image);
      });
