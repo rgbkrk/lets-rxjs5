@@ -3,8 +3,6 @@ const paint = require('./mapping').paint;
 
 const mapCanvas = document.getElementById('map');
 
-const Scheduler = require('@reactivex/rxjs/dist/cjs/Rx.DOM').Scheduler;
-
 var image;
 
 const imageEl = new Image();
