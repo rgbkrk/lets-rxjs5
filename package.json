@@ -7,6 +7,7 @@
     "@reactivex/rxjs": "^5.0.0-beta.2",
     "adjectives": "^1.0.1",
     "clean-codsworth-names": "^1.0.0",
+    "immutable": "^3.7.6",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
@@ -18,7 +19,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify index.js -t babelify --outfile bundle.js"
   },
-  "babel": { "presets": ["es2015"] },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
   "license": "Apache-2.0"
 }

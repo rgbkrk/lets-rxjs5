@@ -26,4 +26,5 @@ function paint(canvas, image, players) {
 
 module.exports = {
   paint,
+  MAP_SIZE,
 };
