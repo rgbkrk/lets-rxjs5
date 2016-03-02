@@ -18,6 +18,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify index.js -t babelify --outfile bundle.js"
   },
+  "babel": { "presets": ["es2015"] },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
   "license": "Apache-2.0"
 }
