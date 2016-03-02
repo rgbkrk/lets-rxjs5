@@ -38,7 +38,7 @@ fakes.livePlayers(fakes.defaultPlayers, 10)
          const original = model.players.get(id);
          const pos = index(original.x, original.y);
          // Remove the old entry
-         grid = grid.set(pos, grid.get(pos).filter(x => x !== id));
+         grid = grid.update(pos, c => c.filter(x => x !== id));
        }
 
        const newPos = index(player.x, player.y);
@@ -47,7 +47,6 @@ fakes.livePlayers(fakes.defaultPlayers, 10)
        return {
          players: model.players.set(id, player),
          // add our new position to the player grid
-         // TODO: use updateIn()
          grid: grid.update(newPos, c => c.push(id)),
        };
      }, { players: new Map(), grid: emptyGrid })
