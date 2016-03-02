@@ -3,6 +3,8 @@ const paint = require('./mapping').paint;
 
 const mapCanvas = document.getElementById('map');
 
+const Scheduler = require('@reactivex/rxjs/dist/cjs/Rx.DOM').Scheduler;
+
 var image;
 
 const imageEl = new Image();
@@ -17,9 +19,7 @@ fakes.livePlayers(fakes.defaultPlayers, 10)
        // collect the latest data for each player over time
        return players.set(player.id, player);
      }, new Map())
-     // To render at approximately 60fps, we need to throttle by 16.66667 ms
-     // 1 second = 1000 ms => 1000/60 = 16.6667 ms between frames
-     .throttleTime(17)
+     .throttleTime(10)
      .subscribe(players => {
-       paint(mapCanvas, image, players);
+       window.requestAnimationFrame(paint.bind(null, mapCanvas, image, players));
      });
